@@ -12,7 +12,7 @@ class FileIOService constructor(moveHistory: List<Movements>) {
             val lines = arrayListOf<String>()
             val defineMoveTimeLine = "#define MOVE_TIME ${Constants.Generator.MOVE_TIME};"
             val defineTurnTimeLine = "#define TURN_TIME ${Constants.Generator.TURN_TIME};"
-            val mainLine = "${Constants.Generator.task} main ${Constants.Generator.braceUp}"
+            val mainLine = "${Constants.Generator.task} main() ${Constants.Generator.braceUp}"
 
             lines.add(defineMoveTimeLine)
             lines.add(defineTurnTimeLine + "\n")
@@ -24,10 +24,10 @@ class FileIOService constructor(moveHistory: List<Movements>) {
 
             for(move in moveHistory) {
                 when(move) {
-                    Movements.FWD -> lines.add("forwards(50, 10000)")
-                    Movements.REV -> lines.add("backwards(75, 2000);")
-                    Movements.LEFT -> lines.add("turn_left(75, 750);")
-                    Movements.RIGHT -> lines.add("turn_right(75, 750);")
+                    Movements.FWD -> lines.add("forwards(50, 200);")
+                    Movements.REV -> lines.add("backwards(75, 200);")
+                    Movements.LEFT -> lines.add("turn_left(75, 900);")
+                    Movements.RIGHT -> lines.add("turn_right(75, 900);")
                 }
             }
 

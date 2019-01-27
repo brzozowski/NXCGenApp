@@ -6,6 +6,7 @@ import javafx.application.Platform
 import javafx.beans.property.StringProperty
 import javafx.embed.swing.SwingFXUtils
 import javafx.scene.Node
+import javafx.scene.control.Label
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
 import javafx.scene.image.ImageView
@@ -14,6 +15,8 @@ import javafx.scene.layout.Pane
 import mu.KLogging
 import tornadofx.*
 import javafx.scene.control.cell.PropertyValueFactory
+import javafx.scene.layout.AnchorPane
+import javafx.scene.layout.VBox
 import javafx.util.Callback
 
 
@@ -24,7 +27,8 @@ class MainView: View("NXCGenApp"), RobotUseCases {
     override val root : GridPane by fxml("/MainView.fxml")
 
     private val canvas : Pane by fxid()
-    private val historyTab : TableView<Robot> by fxid()
+    private val labelAnchorPane : AnchorPane by fxid()
+    private val labelVbox : VBox by fxid()
     private val indexColumn : TableColumn<Robot, String> by fxid()
     private val moveColumn : TableColumn<Robot, String> by fxid()
 
@@ -35,19 +39,14 @@ class MainView: View("NXCGenApp"), RobotUseCases {
         robot.add(hero)
 
         canvas.children.add(robot)
-
-        with(historyTab)  {
-            makeIndexColumn()
-            column("Move", Robot::class) {
-                    value { data ->
-                        "${data.value.currentMoveProperty()}"
-                    }
-            }
-        }
     }
 
     fun onCloseBtnClicked() {
         Platform.exit()
+    }
+
+    fun onRunBtnClicked() {
+        robot.onRunBtnClicked()
     }
 
     fun onGenerateBtnClicked() {
@@ -56,22 +55,22 @@ class MainView: View("NXCGenApp"), RobotUseCases {
 
     override fun onFwdClicked() {
         robot.onFwdClicked()
-        historyTab.refresh()
+        labelVbox.children.add(Label("FWD"))
     }
 
     override fun onRevClicked() {
         robot.onRevClicked()
-        historyTab.refresh()
+        labelVbox.children.add(Label("REV"))
     }
 
     override fun onRightClicked() {
         robot.onRightClicked()
-        historyTab.refresh()
+        labelVbox.children.add(Label("RIGHT"))
     }
 
     override fun onLeftClicked() {
         robot.onLeftClicked()
-        historyTab.refresh()
+        labelVbox.children.add(Label("LEFT"))
     }
 
     override fun onFwdReleased() {

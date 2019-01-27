@@ -19,10 +19,9 @@ import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
 import javafx.beans.property.SimpleIntegerProperty
+import java.util.concurrent.locks.ReentrantLock
 
-
-
-data class Robot (
+data class Robot(
         var x: Double = CANVAS_WIDTH / 3,
         var y: Double = CANVAS_HEIGHT / 3,
         var width: Int = 10,
@@ -66,6 +65,37 @@ data class Robot (
         currentMove = SimpleStringProperty(movement.name)
     }
 
+    fun onRunBtnClicked() {
+        moveHeroTo(CANVAS_WIDTH / 3, CANVAS_HEIGHT / 3)
+
+        for (move in moveHistory) {
+            if (move == Movements.FWD) {
+                goNorth = true
+                checkMoveDirection()
+                goNorth = false
+            }
+
+            if (move == Movements.REV) {
+                goSouth = true
+                checkMoveDirection()
+                goSouth = false
+
+            }
+
+            if (move == Movements.RIGHT) {
+                goEast = true
+                checkMoveDirection()
+                goEast = false
+            }
+
+            if (move == Movements.LEFT) {
+                goWest = true
+                checkMoveDirection()
+                goWest = false
+            }
+        }
+    }
+
     override fun onLeftClicked() {
         goWest = true
         checkMoveDirection()
@@ -106,7 +136,7 @@ data class Robot (
         goWest = false
     }
 
-    fun moveHeroBy(dx: Int, dy: Int) {
+    private fun moveHeroBy(dx: Int, dy: Int) {
         if (dx == 0 && dy == 0) return
 
         val cx = this.boundsInLocal.width / 2
@@ -118,7 +148,7 @@ data class Robot (
         moveHeroTo(x, y)
     }
 
-    fun moveHeroTo(x: Double, y: Double) {
+    private fun moveHeroTo(x: Double, y: Double) {
         val cx = this.boundsInLocal.width / 2
         val cy = this.boundsInLocal.height / 2
 

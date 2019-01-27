@@ -3,39 +3,59 @@
 
 #define forwards(s, t) OnFwd(OUT_AB, s); Wait(t);
 #define backwards(s, t) OnRev(OUT_AB, s); Wait(t);
-#define turn_left(s, t) \
-OnRev(OUT_A, s); OnFwd(OUT_B, s); Wait(t);
-#define turn_right(s, t) \
-OnFwd(OUT_A, s); OnRev(OUT_B, s); Wait(t);
+#define turn_left(s, t) OnRev(OUT_A, s); OnFwd(OUT_B, s); Wait(t); OnFwd(OUT_AB, s); Wait(t);
+#define turn_right(s, t) OnFwd(OUT_A, s); OnRev(OUT_B, s); Wait(t); OnFwd(OUT_AB, s); Wait(t);
 
-task main {
-turn_right(75, 750);
-turn_right(75, 750);
-turn_left(75, 750);
-turn_left(75, 750);
-backwards(75, 2000);
-backwards(75, 2000);
-forwards(50, 10000)
-backwards(75, 2000);
-backwards(75, 2000);
-backwards(75, 2000);
-backwards(75, 2000);
-backwards(75, 2000);
-backwards(75, 2000);
-turn_right(75, 750);
-turn_right(75, 750);
-turn_right(75, 750);
-turn_right(75, 750);
-turn_right(75, 750);
-turn_right(75, 750);
-turn_right(75, 750);
-turn_right(75, 750);
-turn_left(75, 750);
-turn_left(75, 750);
-turn_left(75, 750);
-turn_left(75, 750);
-forwards(50, 10000)
-forwards(50, 10000)
-forwards(50, 10000)
+task main() {
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+turn_left(75, 900);
+turn_left(75, 900);
+turn_left(75, 900);
+turn_left(75, 900);
+turn_left(75, 900);
+turn_left(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+backwards(75, 200);
+forwards(50, 200);
+forwards(50, 200);
+forwards(50, 200);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
+turn_right(75, 900);
 Off(OUT_AB);
 }
